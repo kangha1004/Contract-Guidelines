@@ -5,22 +5,334 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>서울특별시교육청 계약업무 근거 챗봇</title>
 <style>
-:root{--bg:#f5f7fb;--panel:#fff;--ink:#172033;--muted:#657087;--line:#dfe5ef;--primary:#2357d9;--primary2:#163f9f;--ok:#127a4b;--warn:#a15c00;--danger:#b42318}*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",Arial,sans-serif;background:var(--bg);color:var(--ink)}.wrap{max-width:1120px;margin:auto;padding:24px 18px 70px}.hero{background:linear-gradient(135deg,#173f9f,#285fdf);color:#fff;border-radius:22px;padding:26px 28px;box-shadow:0 12px 30px rgba(26,62,140,.18)}.hero h1{margin:0 0 8px;font-size:28px}.hero p{margin:0;opacity:.9;line-height:1.6}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.step{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:12px 14px;font-size:14px}.step b{display:block;font-size:15px;margin-bottom:4px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:18px;box-shadow:0 4px 18px rgba(20,35,70,.05)}.section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:19px}.num{width:29px;height:29px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--primary);color:#fff;font-weight:800;font-size:14px}.api-grid{display:grid;grid-template-columns:minmax(260px,1fr) 230px auto;gap:10px;align-items:end}label{font-weight:750;font-size:14px;display:block;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #cbd4e3;border-radius:12px;background:#fff;color:var(--ink);font:inherit;outline:none}input,select{height:46px;padding:0 13px}textarea{min-height:150px;padding:16px;font-size:18px;line-height:1.55;resize:vertical;border:2px solid #9fb5ea;box-shadow:0 0 0 4px rgba(35,87,217,.05)}input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(35,87,217,.11)}.keybox{position:relative}.keybox input{padding-right:72px}.tinybtn{position:absolute;right:7px;top:32px;height:32px;border:0;background:#eef2f8;border-radius:8px;padding:0 10px;cursor:pointer}button{font:inherit;cursor:pointer}.btn{height:46px;border:0;border-radius:12px;padding:0 17px;font-weight:800}.btn-sub{background:#edf2ff;color:#214aa9;border:1px solid #c9d7fa}.ask-btn{width:100%;height:58px;border:0;border-radius:14px;background:var(--primary);color:#fff;font-size:18px;font-weight:850;margin-top:12px;box-shadow:0 7px 16px rgba(35,87,217,.2)}.ask-btn:hover{background:var(--primary2)}.ask-btn:disabled{opacity:.55;cursor:not-allowed}.status{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14px;display:none}.status.show{display:block}.status.ok{background:#eaf7f0;color:#0e6840}.status.warn{background:#fff5e6;color:#8c5100}.status.err{background:#fff0ef;color:#9f1f16}.examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.chip{border:1px solid #cad6ee;background:#f8faff;color:#264b9a;border-radius:999px;padding:8px 12px;font-size:13px}.answer-area{display:none}.answer-area.show{display:block}.answer-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.badge{display:inline-block;border-radius:999px;padding:5px 10px;background:#eaf0ff;color:#234ca8;font-size:12px;font-weight:800}.answer{font-size:16px;line-height:1.75;white-space:pre-wrap;background:#fbfcff;border:1px solid #dfe6f4;border-radius:14px;padding:18px;min-height:90px}.sources-title{font-size:16px;margin:20px 0 10px}details.source{border:1px solid var(--line);border-radius:12px;background:#fff;margin:9px 0;overflow:hidden}details.source summary{padding:13px 15px;cursor:pointer;font-weight:800;background:#f8faff}.source-body{padding:14px 15px;line-height:1.65;font-size:14px;color:#30394c;white-space:pre-wrap;max-height:310px;overflow:auto}.rank{font-size:12px;color:#63708a;margin-left:6px;font-weight:600}.notice{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6}.loader{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-3px;margin-right:7px}@keyframes spin{to{transform:rotate(360deg)}}.footer{margin-top:22px;text-align:center;color:#7a8497;font-size:12px}@media(max-width:760px){.steps{grid-template-columns:1fr}.api-grid{grid-template-columns:1fr}.hero{padding:22px 20px}.hero h1{font-size:23px}.wrap{padding:14px 10px 50px}textarea{font-size:16px}}
+  :root{
+    --bg:#f5f7fb; --panel:#ffffff; --ink:#172033; --muted:#657087;
+    --line:#dfe5ef; --primary:#2357d9; --primary2:#163f9f;
+    --ok:#127a4b; --warn:#a15c00; --danger:#b42318; --soft:#eef3ff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI","Noto Sans KR",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .wrap{max-width:1120px;margin:0 auto;padding:24px 18px 70px}
+  .hero{background:linear-gradient(135deg,#173f9f,#285fdf);color:#fff;border-radius:22px;padding:26px 28px;box-shadow:0 12px 30px rgba(26,62,140,.18)}
+  .hero h1{margin:0 0 8px;font-size:28px;letter-spacing:-.5px}
+  .hero p{margin:0;opacity:.9;line-height:1.6}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+  .step{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:12px 14px;font-size:14px}
+  .step b{display:block;font-size:15px;margin-bottom:4px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:18px;box-shadow:0 4px 18px rgba(20,35,70,.05)}
+  .section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px;font-size:19px}
+  .num{width:29px;height:29px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:var(--primary);color:#fff;font-weight:800;font-size:14px}
+  .api-grid{display:grid;grid-template-columns:minmax(260px,1fr) 230px auto;gap:10px;align-items:end}
+  label{font-weight:750;font-size:14px;display:block;margin-bottom:7px}
+  input, select, textarea{width:100%;border:1px solid #cbd4e3;border-radius:12px;background:#fff;color:var(--ink);font:inherit;outline:none}
+  input, select{height:46px;padding:0 13px}
+  textarea{min-height:150px;padding:16px;font-size:18px;line-height:1.55;resize:vertical;border:2px solid #9fb5ea;box-shadow:0 0 0 4px rgba(35,87,217,.05)}
+  input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(35,87,217,.11)}
+  .keybox{position:relative}.keybox input{padding-right:72px}.tinybtn{position:absolute;right:7px;top:32px;height:32px;border:0;background:#eef2f8;border-radius:8px;padding:0 10px;cursor:pointer}
+  button{font:inherit;cursor:pointer}
+  .btn{height:46px;border:0;border-radius:12px;padding:0 17px;font-weight:800}
+  .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary2)}
+  .btn-sub{background:#edf2ff;color:#214aa9;border:1px solid #c9d7fa}
+  .ask-btn{width:100%;height:58px;border:0;border-radius:14px;background:var(--primary);color:#fff;font-size:18px;font-weight:850;margin-top:12px;box-shadow:0 7px 16px rgba(35,87,217,.2)}
+  .ask-btn:hover{background:var(--primary2)}.ask-btn:disabled{opacity:.55;cursor:not-allowed}
+  .status{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:14px;display:none}
+  .status.show{display:block}.status.ok{background:#eaf7f0;color:#0e6840}.status.warn{background:#fff5e6;color:#8c5100}.status.err{background:#fff0ef;color:#9f1f16}
+  .examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{border:1px solid #cad6ee;background:#f8faff;color:#264b9a;border-radius:999px;padding:8px 12px;font-size:13px}
+  .chip:hover{background:#edf3ff}
+  .answer-area{display:none}.answer-area.show{display:block}
+  .answer-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}
+  .badge{display:inline-block;border-radius:999px;padding:5px 10px;background:#eaf0ff;color:#234ca8;font-size:12px;font-weight:800}
+  .answer{font-size:16px;line-height:1.75;white-space:pre-wrap;background:#fbfcff;border:1px solid #dfe6f4;border-radius:14px;padding:18px;min-height:90px}
+  .sources-title{font-size:16px;margin:20px 0 10px}
+  details.source{border:1px solid var(--line);border-radius:12px;background:#fff;margin:9px 0;overflow:hidden}
+  details.source summary{padding:13px 15px;cursor:pointer;font-weight:800;background:#f8faff}
+  .source-body{padding:14px 15px;line-height:1.65;font-size:14px;color:#30394c;white-space:pre-wrap;max-height:310px;overflow:auto}
+  .rank{font-size:12px;color:#63708a;margin-left:6px;font-weight:600}
+  .notice{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6}
+  .loader{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-3px;margin-right:7px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .footer{margin-top:22px;text-align:center;color:#7a8497;font-size:12px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr}.api-grid{grid-template-columns:1fr}.hero{padding:22px 20px}.hero h1{font-size:23px}.wrap{padding:14px 10px 50px}textarea{font-size:16px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<section class="hero"><h1>서울특별시교육청 계약업무 근거 챗봇</h1><p>「계약업무 처리지침(2023.12.27. 개정)」에서 근거를 먼저 찾고, 그 근거만 Gemini에 전달해 답변을 만듭니다.</p><div class="steps"><div class="step"><b>① API 키 입력</b>Gemini API 키를 입력합니다.</div><div class="step"><b>② 질문 입력</b>아래 큰 입력창에 계약업무를 질문합니다.</div><div class="step"><b>③ 답변 + 근거</b>답변과 실제 근거 조항을 함께 확인합니다.</div></div></section>
-<section class="card"><h2 class="section-title"><span class="num">1</span> Gemini API 설정</h2><div class="api-grid"><div class="keybox"><label for="apiKey">Gemini API Key</label><input id="apiKey" type="password" autocomplete="off" placeholder="AIza... 형태의 API 키를 붙여 넣으세요"><button class="tinybtn" id="toggleKey" type="button">보기</button></div><div><label for="modelSelect">모델</label><select id="modelSelect"><option value="auto">자동 선택 (권장)</option><option value="gemini-2.5-flash">gemini-2.5-flash</option><option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite</option></select></div><button id="testApi" class="btn btn-sub" type="button">API 연결 확인</button></div><div id="apiStatus" class="status"></div><div class="notice">API 키는 저장하지 않고 현재 브라우저 탭에서만 사용합니다.</div></section>
-<section class="card"><h2 class="section-title"><span class="num">2</span> 여기에 질문하세요</h2><textarea id="question" placeholder="예) 물품을 1인견적 수의계약으로 구매할 수 있는 금액 기준과 필요한 서류를 알려줘."></textarea><button id="ask" class="ask-btn" type="button">질문하기</button><div class="examples"><button class="chip" data-q="물품 1인견적 수의계약은 얼마까지 가능한가요?">물품 1인견적 기준</button><button class="chip" data-q="동일업체와 수의계약은 연간 몇 회까지 가능한가요?">동일업체 계약 횟수</button><button class="chip" data-q="용역 계약 체결 시 필요한 구비서류를 알려줘.">용역 계약 구비서류</button><button class="chip" data-q="공사 준공 단계에서 필요한 서류는 무엇인가요?">공사 준공 서류</button><button class="chip" data-q="학교 물품·용역 통합선정위원회는 언제 개최하나요?">통합선정위원회</button></div><div id="askStatus" class="status"></div></section>
-<section class="card answer-area" id="answerArea"><div class="answer-head"><h2 class="section-title" style="margin:0"><span class="num">3</span> 답변</h2><span class="badge" id="usedModel">근거 검색</span></div><div id="answer" class="answer"></div><h3 class="sources-title">근거 조항 · 원문</h3><div id="sources"></div><div class="notice">※ 이 챗봇은 2023.12.27. 개정 지침을 기준으로 답합니다. 실제 업무처리 전에는 최신 법령·예규·지침의 개정 여부를 확인하세요.</div></section>
-<div class="footer">서울특별시교육청 계약업무 처리지침 조회용</div></div>
-<script src="data-01.js"></script><script src="data-02.js"></script>
+  <section class="hero">
+    <h1>서울특별시교육청 계약업무 근거 챗봇</h1>
+    <p>내장된 「계약업무 처리지침(2023.12.27. 개정)」에서 근거를 먼저 찾고, 그 근거만 Gemini에 전달해 답변을 만듭니다.</p>
+    <div class="steps">
+      <div class="step"><b>① API 키 입력</b>Gemini API 키를 한 번 입력합니다.</div>
+      <div class="step"><b>② 질문 입력</b>아래 큰 입력창에 계약업무를 질문합니다.</div>
+      <div class="step"><b>③ 답변 + 근거</b>답변과 실제 근거 조항을 함께 확인합니다.</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title"><span class="num">1</span> Gemini API 설정</h2>
+    <div class="api-grid">
+      <div class="keybox">
+        <label for="apiKey">Gemini API Key</label>
+        <input id="apiKey" type="password" autocomplete="off" placeholder="AIza... 형태의 API 키를 붙여 넣으세요" />
+        <button class="tinybtn" id="toggleKey" type="button">보기</button>
+      </div>
+      <div>
+        <label for="modelSelect">모델</label>
+        <select id="modelSelect">
+          <option value="auto">자동 선택 (권장)</option>
+          <option value="gemini-3.7-flash">gemini-3.7-flash</option>
+          <option value="gemini-3.6-flash">gemini-3.6-flash</option>
+          <option value="gemini-3.5-flash">gemini-3.5-flash</option>
+          <option value="gemini-3.5-flash-lite">gemini-3.5-flash-lite</option>
+        </select>
+      </div>
+      <button id="testApi" class="btn btn-sub" type="button">API 연결 확인</button>
+    </div>
+    <div id="apiStatus" class="status"></div>
+    <div class="notice">API 키는 HTML 파일에 저장하지 않으며 현재 브라우저 탭의 메모리에만 사용합니다. 공개 웹사이트에 API 키를 직접 넣지는 마세요.</div>
+  </section>
+
+  <section class="card" id="questionCard">
+    <h2 class="section-title"><span class="num">2</span> 여기에 질문하세요</h2>
+    <textarea id="question" placeholder="예) 물품을 1인견적 수의계약으로 구매할 수 있는 금액 기준과 필요한 서류를 알려줘."></textarea>
+    <button id="ask" class="ask-btn" type="button">질문하기</button>
+    <div class="examples">
+      <button class="chip" data-q="물품 1인견적 수의계약은 얼마까지 가능한가요?">물품 1인견적 기준</button>
+      <button class="chip" data-q="동일업체와 수의계약은 연간 몇 회까지 가능한가요?">동일업체 계약 횟수</button>
+      <button class="chip" data-q="용역 계약 체결 시 필요한 구비서류를 알려줘.">용역 계약 구비서류</button>
+      <button class="chip" data-q="공사 준공 단계에서 필요한 서류는 무엇인가요?">공사 준공 서류</button>
+      <button class="chip" data-q="학교 물품·용역 통합선정위원회는 언제 개최하나요?">통합선정위원회</button>
+    </div>
+    <div id="askStatus" class="status"></div>
+  </section>
+
+  <section class="card answer-area" id="answerArea">
+    <div class="answer-head">
+      <h2 class="section-title" style="margin:0"><span class="num">3</span> 답변</h2>
+      <span class="badge" id="usedModel">근거 검색</span>
+    </div>
+    <div id="answer" class="answer"></div>
+    <h3 class="sources-title">근거 조항 · 원문</h3>
+    <div id="sources"></div>
+    <div class="notice">※ 이 챗봇은 내장된 2023.12.27. 개정 지침을 기준으로 답합니다. 실제 업무처리 전에는 관련 법령·예규·최신 지침의 개정 여부를 확인하세요.</div>
+  </section>
+
+  <div class="footer">서울특별시교육청 계약업무 처리지침 조회용 · 단일 HTML</div>
+</div>
+
+<script src="data-01.js"></script>
+<script src="data-02.js"></script>
 <script>
-(async function(){'use strict';const $=id=>document.getElementById(id);async function loadData(){const bin=atob(window.__DATA_B64||'');const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));const ds=new DecompressionStream('gzip');const buf=await new Response(new Blob([bytes]).stream().pipeThrough(ds)).arrayBuffer();return JSON.parse(new TextDecoder('utf-8').decode(buf))}let DATA;try{DATA=await loadData()}catch(e){document.body.innerHTML='<div style="padding:30px;font-family:sans-serif"><h2>지침 데이터 로딩 오류</h2><p>'+e.message+'</p></div>';return}const units=[];const arrText=v=>Array.isArray(v)?v.map(x=>String(x??'')).join('\n'):String(v??'');(DATA.chapters||[]).forEach(ch=>(ch.sections||[]).forEach(sec=>{const text=arrText(sec.content);if(text.trim())units.push({type:'본문',title:`제${ch.number}장 ${ch.title} > 제${sec.number}절 ${sec.title}`,text})}));(DATA.appendices||[]).forEach(ap=>{const text=arrText(ap.content);if(text.trim())units.push({type:'붙임',title:`붙임 ${ap.id}. ${ap.title}`,text})});
-const groups=[['1인견적','1인 견적','수의시담','전자시담'],['2인이상','2인 이상','견적제출','견적 제출'],['물품','구매','제조구매','제조·구매'],['용역','서비스','위탁'],['공사','시설공사','건설공사'],['서류','구비서류','제출서류','징구'],['준공','완료','검사검수','검수'],['계약서','승낙사항'],['동일업체','반복적 수의계약','계약 횟수','횟수'],['선정위원회','통합선정위원회','위원회'],['청렴','청렴서약','청렴계약'],['안전','보건','중대재해','체크리스트'],['우선구매','공공구매','사회적경제','여성기업','장애인기업']];const norm=s=>String(s||'').toLowerCase().replace(/[\s·ㆍ,().\[\]{}<>「」『』:;!?%]/g,'');function tokens(q){const raw=String(q||'').toLowerCase().match(/[가-힣a-z0-9.%]+/g)||[];const set=new Set(raw.filter(t=>t.length>=2||/\d/.test(t)));groups.forEach(g=>{if(g.some(w=>norm(q).includes(norm(w))))g.forEach(w=>set.add(w.toLowerCase()))});return[...set]}function score(u,q){const nq=norm(q),nt=norm(u.title),nx=norm(u.text);let s=0;if(nq&&nx.includes(nq))s+=45;if(nq&&nt.includes(nq))s+=70;for(const t of tokens(q)){const n=norm(t);if(!n)continue;if(nt.includes(n))s+=12;if(nx.includes(n))s+=4;if(/^\d/.test(n)&&nx.includes(n))s+=4}if(/1\s*인/.test(q)&&/1인견적/.test(u.text))s+=18;if(/2\s*인/.test(q)&&/2인이상|2인 이상/.test(u.text))s+=14;if(/서류|징구|제출/.test(q)&&/구비서류|서류명|징구/.test(u.text))s+=12;if(/금액|얼마|기준/.test(q)&&/추정가격|계약금액|원 이하|만원|억원/.test(u.text))s+=10;return s}const retrieve=(q,l=7)=>units.map(u=>({...u,score:score(u,q)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,l);const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function status(el,msg,type){el.className=`status show ${type||'warn'}`;el.textContent=msg}function hide(el){el.className='status';el.textContent=''}function render(found){$('sources').innerHTML='';found.forEach((u,i)=>{const d=document.createElement('details');d.className='source';if(i<2)d.open=true;const s=document.createElement('summary');s.innerHTML=`[근거 ${i+1}] ${esc(u.title)} <span class="rank">관련도 ${u.score}</span>`;const b=document.createElement('div');b.className='source-body';b.textContent=u.text;d.append(s,b);$('sources').appendChild(d)})}
-async function listModels(key){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models',{headers:{'x-goog-api-key':key}});const txt=await r.text();let obj={};try{obj=JSON.parse(txt)}catch{obj={raw:txt}}if(!r.ok)throw new Error(apiErr(r.status,obj));return(obj.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent'))}const clean=n=>String(n||'').replace(/^models\//,'');function choose(models,selected){if(selected&&selected!=='auto')return selected;const names=models.map(m=>clean(m.name));for(const p of['gemini-2.5-flash','gemini-2.5-flash-lite','gemini-2.0-flash'])if(names.includes(p))return p;return names.find(n=>/^gemini-.*flash/.test(n))||names.find(n=>/^gemini-/.test(n))||'gemini-2.5-flash'}function apiErr(code,obj){const m=obj?.error?.message||obj?.message||obj?.raw||'알 수 없는 오류';if(code===401||code===403)return`API 키/권한 오류 (${code}): ${m}`;if(code===429)return`API 사용량 한도 초과 (429): ${m}`;return`Gemini API 오류 (${code}): ${m}`}
-async function askGemini(key,model,q,found){const source=found.map((u,i)=>`[근거 ${i+1}] ${u.title}\n${u.text}`).join('\n\n---\n\n');const system=`당신은 서울특별시교육청 계약업무 처리지침 전용 질의응답 도우미다. 반드시 제공된 [근거 n] 내용만 사용한다. 질문의 결론을 먼저 명확하게 답하고, 금액·횟수·비율·예외·제출서류는 근거 표현을 정확히 사용한다. 중요한 문장 끝에는 [근거 1]처럼 번호를 붙인다. 근거만으로 판단할 수 없으면 '첨부 지침만으로는 확인되지 않습니다.'라고 답한다.`;const body={system_instruction:{parts:[{text:system}]},contents:[{role:'user',parts:[{text:`사용자 질문:\n${q}\n\n검색된 지침 근거:\n${source}\n\n위 근거만으로 답변하세요.`}]}],generationConfig:{temperature:.15,maxOutputTokens:1400}};const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});const txt=await r.text();let obj={};try{obj=JSON.parse(txt)}catch{obj={raw:txt}}if(!r.ok)throw new Error(apiErr(r.status,obj));const answer=(obj?.candidates?.[0]?.content?.parts||[]).map(p=>p.text||'').join('').trim();if(!answer)throw new Error('Gemini가 답변 텍스트를 반환하지 않았습니다.');return answer}
-$('toggleKey').onclick=()=>{const i=$('apiKey');i.type=i.type==='password'?'text':'password';$('toggleKey').textContent=i.type==='password'?'보기':'숨김'};document.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{$('question').value=b.dataset.q||'';$('question').focus()});let cache=[];$('testApi').onclick=async()=>{hide($('apiStatus'));const key=$('apiKey').value.trim();if(!key){status($('apiStatus'),'먼저 Gemini API Key를 입력하세요.','warn');return}try{cache=await listModels(key);status($('apiStatus'),`연결 성공 · 사용 모델: ${choose(cache,$('modelSelect').value)}`,'ok')}catch(e){status($('apiStatus'),e.message,'err')}};$('question').addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='Enter')$('ask').click()});$('ask').onclick=async()=>{hide($('askStatus'));const q=$('question').value.trim();if(!q){status($('askStatus'),'질문을 입력하세요.','warn');return}const found=retrieve(q);$('answerArea').classList.add('show');render(found);if(!found.length){$('usedModel').textContent='근거 없음';$('answer').textContent='관련 근거를 찾지 못했습니다.';return}const key=$('apiKey').value.trim();if(!key){$('usedModel').textContent='근거 검색만 실행';$('answer').textContent='관련 근거는 아래에서 찾았습니다. Gemini 답변을 받으려면 위에 API Key를 입력하세요.';return}const btn=$('ask');btn.disabled=true;btn.innerHTML='<span class="loader"></span>Gemini가 답변 작성 중...';try{if(!cache.length)cache=await listModels(key);const model=choose(cache,$('modelSelect').value);$('usedModel').textContent=model;$('answer').textContent=await askGemini(key,model,q,found);status($('askStatus'),`답변 생성 완료 · ${model} · 근거 ${found.length}건`,'ok')}catch(e){$('usedModel').textContent='API 오류';$('answer').textContent=`Gemini 답변 생성에 실패했습니다.\n\n${e.message}\n\n아래에는 관련 지침 근거를 표시했습니다.`;status($('askStatus'),e.message,'err')}finally{btn.disabled=false;btn.textContent='질문하기';$('answerArea').scrollIntoView({behavior:'smooth',block:'start'})}};setTimeout(()=>$('question').focus({preventScroll:true}),150)})();
+(async function(){
+  'use strict';
+  const $ = (id)=>document.getElementById(id);
+
+  async function loadData(){
+    const bin=atob(window.__DATA_B64||'');
+    const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));
+    const ds=new DecompressionStream('gzip');
+    const decompressed=await new Response(new Blob([bytes]).stream().pipeThrough(ds)).arrayBuffer();
+    return JSON.parse(new TextDecoder('utf-8').decode(decompressed));
+  }
+  const DATA = await loadData();
+  const units = [];
+
+  function arrText(v){ return Array.isArray(v) ? v.map(x=>String(x ?? '')).join('\n') : String(v ?? ''); }
+  (DATA.chapters||[]).forEach(ch=>{
+    (ch.sections||[]).forEach(sec=>{
+      const title = `제${ch.number}장 ${ch.title} > 제${sec.number}절 ${sec.title}`;
+      const text = arrText(sec.content);
+      if(text.trim()) units.push({type:'본문', title, text});
+    });
+  });
+  (DATA.appendices||[]).forEach(ap=>{
+    const title = `붙임 ${ap.id}. ${ap.title}`;
+    const text = arrText(ap.content);
+    if(text.trim()) units.push({type:'붙임', title, text});
+  });
+
+  const synonymGroups = [
+    ['1인견적','1인 견적','수의시담','전자시담'],
+    ['2인이상','2인 이상','견적제출','견적 제출'],
+    ['물품','구매','제조구매','제조·구매'],
+    ['용역','서비스','위탁'],
+    ['공사','시설공사','건설공사'],
+    ['서류','구비서류','제출서류','징구'],
+    ['준공','완료','검사검수','검수'],
+    ['계약서','승낙사항'],
+    ['동일업체','반복적 수의계약','계약 횟수','횟수'],
+    ['선정위원회','통합선정위원회','위원회'],
+    ['청렴','청렴서약','청렴계약'],
+    ['안전','보건','중대재해','체크리스트'],
+    ['우선구매','공공구매','사회적경제','여성기업','장애인기업']
+  ];
+
+  function normalize(s){
+    return String(s||'').toLowerCase().replace(/[\s·ㆍ,().\[\]{}<>「」『』:;!?%]/g,'');
+  }
+  function tokens(q){
+    const raw = String(q||'').toLowerCase().match(/[가-힣a-z0-9.%]+/g) || [];
+    const set = new Set(raw.filter(t=>t.length>=2 || /\d/.test(t)));
+    synonymGroups.forEach(g=>{
+      if(g.some(w=>normalize(q).includes(normalize(w)))) g.forEach(w=>set.add(w.toLowerCase()));
+    });
+    return [...set];
+  }
+  function scoreUnit(u,q){
+    const nq=normalize(q), nt=normalize(u.title), nx=normalize(u.text);
+    let s=0;
+    if(nq && nx.includes(nq)) s+=45;
+    if(nq && nt.includes(nq)) s+=70;
+    const ts=tokens(q);
+    for(const t of ts){
+      const n=normalize(t); if(!n) continue;
+      if(nt.includes(n)) s += 12;
+      if(nx.includes(n)) s += 4;
+      if(/^\d/.test(n) && nx.includes(n)) s += 4;
+    }
+    if(/1\s*인/.test(q) && /1인견적/.test(u.text)) s+=18;
+    if(/2\s*인/.test(q) && /2인이상|2인 이상/.test(u.text)) s+=14;
+    if(/서류|징구|제출/.test(q) && /구비서류|서류명|징구/.test(u.text)) s+=12;
+    if(/금액|얼마|기준/.test(q) && /추정가격|계약금액|원 이하|만원|억원/.test(u.text)) s+=10;
+    return s;
+  }
+  function retrieve(q,limit=7){
+    return units.map(u=>({...u,score:scoreUnit(u,q)})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score).slice(0,limit);
+  }
+  function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function showStatus(el,msg,type){el.className=`status show ${type||'warn'}`;el.textContent=msg;}
+  function hideStatus(el){el.className='status';el.textContent='';}
+
+  function renderSources(found){
+    $('sources').innerHTML='';
+    found.forEach((u,i)=>{
+      const d=document.createElement('details'); d.className='source'; if(i<2)d.open=true;
+      const s=document.createElement('summary');
+      s.innerHTML=`[근거 ${i+1}] ${esc(u.title)} <span class="rank">관련도 ${u.score}</span>`;
+      const b=document.createElement('div'); b.className='source-body'; b.textContent=u.text;
+      d.appendChild(s); d.appendChild(b); $('sources').appendChild(d);
+    });
+  }
+
+  async function listModels(key){
+    const url='https://generativelanguage.googleapis.com/v1beta/models';
+    const r=await fetch(url,{method:'GET',headers:{'x-goog-api-key':key}});
+    const txt=await r.text();
+    let obj={}; try{obj=JSON.parse(txt)}catch(_){obj={raw:txt}}
+    if(!r.ok) throw new Error(apiErrorMessage(r.status,obj));
+    return (obj.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent'));
+  }
+  function cleanModelName(name){return String(name||'').replace(/^models\//,'');}
+  function chooseModel(models,selected){
+    const names=models.map(m=>cleanModelName(m.name));
+    if(selected && selected!=='auto'){
+      if(names.includes(selected)) return selected;
+      throw new Error(`선택한 모델 ${selected}은(는) 이 API 키에서 generateContent로 사용할 수 없습니다.`);
+    }
+    const priorities=['gemini-3.7-flash','gemini-3.6-flash','gemini-3.5-flash','gemini-3.5-flash-lite'];
+    for(const p of priorities){if(names.includes(p)) return p;}
+    const flash3=names.find(n=>/^gemini-3\..*flash/.test(n) && !/(image|tts|audio|live)/.test(n));
+    if(flash3) return flash3;
+    throw new Error('이 API 키에서 사용 가능한 Gemini 3.x Flash 텍스트 모델을 찾지 못했습니다. Google AI Studio에서 API 키의 모델 사용 권한을 확인하세요.');
+  }
+  function apiErrorMessage(status,obj){
+    const m=obj?.error?.message || obj?.message || obj?.raw || '알 수 없는 오류';
+    if(status===400) return `요청 형식 또는 모델 오류 (400): ${m}`;
+    if(status===401||status===403) return `API 키/권한 오류 (${status}): ${m}`;
+    if(status===404) return `모델 또는 API 주소를 찾지 못했습니다 (404): ${m}`;
+    if(status===429) return `API 사용량 한도 초과 (429): ${m}`;
+    return `Gemini API 오류 (${status}): ${m}`;
+  }
+
+  async function callGemini(key, model, question, found){
+    const sourceText=found.map((u,i)=>`[근거 ${i+1}] ${u.title}\n${u.text}`).join('\n\n---\n\n');
+    const system=`당신은 서울특별시교육청 계약업무 처리지침 전용 질의응답 도우미다.\n반드시 제공된 [근거 n] 안의 내용만 사용한다. 일반 지식으로 빈틈을 메우지 않는다.\n답변 원칙:\n1) 질문에 대한 결론을 먼저 쉽고 명확한 한국어로 답한다.\n2) 금액, 횟수, 비율, 예외, 제출서류는 근거에 있는 표현을 정확히 사용한다.\n3) 중요한 문장 끝에 [근거 1]처럼 인용 번호를 붙인다.\n4) 근거끼리 적용 범위가 다르면 공사/용역/물품, 추정가격/계약금액 등을 구분한다.\n5) 제공 근거만으로 판단할 수 없으면 '첨부 지침만으로는 확인되지 않습니다.'라고 말한다.\n6) 법령이 개정될 수 있다는 일반 경고 외에 외부 법령 내용을 새로 만들어내지 않는다.`;
+    const prompt=`사용자 질문:\n${question}\n\n검색된 지침 근거:\n${sourceText}\n\n위 근거만으로 사용자 질문에 답변하세요.`;
+    const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+    const body={
+      system_instruction:{parts:[{text:system}]},
+      contents:[{role:'user',parts:[{text:prompt}]}],
+      generationConfig:{maxOutputTokens:1400}
+    };
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify(body)});
+    const txt=await r.text();
+    let obj={}; try{obj=JSON.parse(txt)}catch(_){obj={raw:txt}}
+    if(!r.ok) throw new Error(apiErrorMessage(r.status,obj));
+    const parts=obj?.candidates?.[0]?.content?.parts||[];
+    const answer=parts.map(p=>p.text||'').join('').trim();
+    if(!answer){
+      const reason=obj?.promptFeedback?.blockReason || obj?.candidates?.[0]?.finishReason || '응답 텍스트 없음';
+      throw new Error(`Gemini가 답변 텍스트를 반환하지 않았습니다: ${reason}`);
+    }
+    return answer;
+  }
+
+  $('toggleKey').addEventListener('click',()=>{
+    const inp=$('apiKey'); inp.type=inp.type==='password'?'text':'password'; $('toggleKey').textContent=inp.type==='password'?'보기':'숨김';
+  });
+  document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{
+    $('question').value=b.dataset.q||''; $('question').focus();
+  }));
+
+  let modelCache=[];
+  $('testApi').addEventListener('click',async()=>{
+    hideStatus($('apiStatus'));
+    const key=$('apiKey').value.trim();
+    if(!key){showStatus($('apiStatus'),'먼저 Gemini API Key를 입력하세요.','warn');$('apiKey').focus();return;}
+    const btn=$('testApi'); const old=btn.textContent; btn.disabled=true; btn.textContent='확인 중...';
+    try{
+      modelCache=await listModels(key);
+      const chosen=chooseModel(modelCache,$('modelSelect').value);
+      showStatus($('apiStatus'),`연결 성공 · generateContent 사용 가능 모델 ${modelCache.length}개 확인 · 현재 사용 모델: ${chosen}`,'ok');
+    }catch(e){showStatus($('apiStatus'),e.message,'err');}
+    finally{btn.disabled=false;btn.textContent=old;}
+  });
+
+  $('question').addEventListener('keydown',e=>{
+    if((e.ctrlKey||e.metaKey)&&e.key==='Enter') $('ask').click();
+  });
+
+  $('ask').addEventListener('click',async()=>{
+    hideStatus($('askStatus'));
+    const q=$('question').value.trim();
+    if(!q){showStatus($('askStatus'),'질문을 입력하세요. 위의 큰 입력창이 질문하는 곳입니다.','warn');$('question').focus();return;}
+    const found=retrieve(q,7);
+    $('answerArea').classList.add('show');
+    renderSources(found);
+    if(!found.length){
+      $('usedModel').textContent='근거 없음';
+      $('answer').textContent='질문과 직접 관련된 근거를 내장 지침에서 찾지 못했습니다. 다른 표현이나 핵심 단어로 다시 질문해 주세요.';
+      $('answerArea').scrollIntoView({behavior:'smooth',block:'start'}); return;
+    }
+    const key=$('apiKey').value.trim();
+    if(!key){
+      $('usedModel').textContent='근거 검색만 실행';
+      $('answer').textContent='관련 근거는 아래에서 찾았습니다.\n\nGemini가 답변 문장을 만들게 하려면 위 ① Gemini API 설정에 API Key를 입력한 뒤 다시 「질문하기」를 누르세요.';
+      showStatus($('askStatus'),'API 키가 없어 근거 검색까지만 실행했습니다. API 키 입력 후 다시 질문하면 Gemini 답변이 생성됩니다.','warn');
+      $('answerArea').scrollIntoView({behavior:'smooth',block:'start'}); return;
+    }
+    const btn=$('ask'); btn.disabled=true; btn.innerHTML='<span class="loader"></span>Gemini가 답변 작성 중...';
+    $('usedModel').textContent='Gemini 연결 중';
+    $('answer').textContent='내장 지침에서 관련 근거를 찾았습니다. Gemini가 근거를 읽고 답변을 작성하고 있습니다.';
+    try{
+      if(!modelCache.length) modelCache=await listModels(key);
+      const model=chooseModel(modelCache,$('modelSelect').value);
+      const ans=await callGemini(key,model,q,found);
+      $('usedModel').textContent=model;
+      $('answer').textContent=ans;
+      showStatus($('askStatus'),`답변 생성 완료 · ${model} · 근거 ${found.length}건`,'ok');
+    }catch(e){
+      $('usedModel').textContent='API 오류';
+      $('answer').textContent=`Gemini 답변 생성에 실패했습니다.\n\n${e.message}\n\n아래에는 질문과 관련된 지침 근거를 그대로 표시했습니다.`;
+      showStatus($('askStatus'),e.message,'err');
+    }finally{
+      btn.disabled=false; btn.textContent='질문하기';
+      $('answerArea').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  });
+
+  setTimeout(()=>$('question').focus({preventScroll:true}),150);
+})();
 </script>
-</body></html>
+</body>
+</html>
